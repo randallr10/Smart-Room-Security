@@ -1,20 +1,21 @@
 int ledPin = 13;
 int sensorPin = 2;
-int sensorState = LOW;
-int sensorValue = 0;
+int pirStat = 0;
 
 void setup() {
-  Serial.begin(115200);
   pinMode(ledPin, OUTPUT);
   pinMode(sensorPin, INPUT);
+  Serial.begin(115200);
 }
 
-void loop() {
-  Serial.println("LED ON");
-  digitalWrite(ledPin, HIGH);
-  delay(500);
-
-  Serial.println("LED OFF");
-  digitalWrite(ledPin, LOW);
-  delay(1000);
+void loop(){
+  sensorPin = digitalRead(sensorPin);
+  if (sensorPin == HIGH) {
+    Serial.println("Motion Detected!");
+    digitalWrite(ledPin, HIGH);
+  }
+  else {
+    digitalWrite(ledPin, LOW);
+    Serial.println("No Motion Detected!");
+  }
 }
